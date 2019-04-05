@@ -2,21 +2,22 @@
 #define C_SPRITE
 
 #include "inclusao.h"
-//#include "SDL.h"
-//#include "SDL_image.h"
+#include "Component.h"
 #include <iostream>
 
-class Sprite{
+class Sprite : public Component{
 
 public:
-	Sprite();
-	Sprite(std::string);
+	Sprite(GameObject&);
+	Sprite(GameObject&, std::string);
 	~Sprite();
 	void Open(std::string);
 	void SetClip(int, int, int, int);
-	void Render(int, int);
+	void Update(float);
+	void Render();
 	int GetWidth();
 	int GetHeight();
+	bool Is(std::string);
 	bool IsOpen();
 private:
 	SDL_Texture* texture;

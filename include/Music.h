@@ -3,8 +3,6 @@
 
 #define NOGDI
 #include "inclusao.h"
-// #include "SDL.h"
-// #include "SDL_mixer.h"
 #include <iostream>
 
 class Music{

@@ -4,7 +4,7 @@ SRCDIR = src
 INCDIR = include
 BINDIR = bin
 OBJDIR = object
-CFLAGS = -std=c++11
+CFLAGS = -std=c++11 #-O0 -ggdb
 LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer
 
 BIN = $(BINDIR)/$(EXECNAME)

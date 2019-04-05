@@ -3,8 +3,12 @@
 
 #include "inclusao.h"
 #include <iostream>
+#include "Face.h"
+#include "Sound.h"
 #include "Sprite.h"
 #include "Music.h"
+#include "GameObject.h"
+#include <memory>
 
 class State{
 
@@ -15,10 +19,15 @@ public:
 	void LoadAssets();
 	void Update(float);
 	void Render();
+
 private:
-	Sprite bg;
+	GameObject* bg;
 	Music music;
 	bool quitRequested;
+
+	void Input();
+	void AddObject(int, int);
+	std::vector<std::shared_ptr<GameObject>> objectArray;
 
 };
 
