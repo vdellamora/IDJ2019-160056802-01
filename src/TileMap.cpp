@@ -39,11 +39,11 @@ void TileMap::Load(std::string file){
 				//tileMatrix[i][j][k] = std::atoi(temp) - 1;
 
 				///// Trace
-				if(D_TRACE) std::cout << ((valor<10 && valor >= 0) ? " " : "") << valor << " ";
+				// if(D_TRACE) std::cout << ((valor<10 && valor >= 0) ? " " : "") << valor << " ";
 			}
-			if(D_TRACE) std::cout << std::endl;
+			// if(D_TRACE) std::cout << std::endl;
 		}
-		if(D_TRACE) std::cout << std::endl;
+		// if(D_TRACE) std::cout << std::endl;
 		std::getline(entrada, linha);
 	}
 }
