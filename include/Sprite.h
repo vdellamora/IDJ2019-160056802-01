@@ -15,6 +15,7 @@ public:
 	void SetClip(int, int, int, int);
 	void Update(float);
 	void Render();
+	void Render(float, float);
 	int GetWidth();
 	int GetHeight();
 	bool Is(std::string);

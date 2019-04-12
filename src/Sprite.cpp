@@ -1,7 +1,7 @@
 #include "../include/Game.h"
 #include "../include/Rect.h"
 #include "../include/Sprite.h"
-
+#include "../include/Resources.h"
 
 Sprite::Sprite(GameObject& go) : Component(go) {
 	texture = nullptr;
@@ -13,16 +13,9 @@ Sprite::Sprite(GameObject& go, std::string file) : Component(go){
 }
 Sprite::~Sprite(){
 	// std::cout << "Destrutor do sprite" << std::endl;
-	if(texture != nullptr) SDL_DestroyTexture(texture);
 }
 void Sprite::Open(std::string file){
-	texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
-	if(texture == nullptr){
-		// Tratar erro
-		std::cout << "Não consegui abrir a textura. Detalhes: " << SDL_GetError() << std::endl;
-		exit(1);
-	}
-
+	texture = Resources::GetImage(file);
 	SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
 	SetClip(0, 0, width, height);
 }
@@ -46,6 +39,14 @@ void Sprite::Render(){
 	// std::cout << "Render do sprite" << std::endl;
 	SDL_Rect r;
 	r.x = associated.box.x; r.y = associated.box.y;
+	r.w = width; r.h = height;
+	SDL_RenderCopy(Game::GetInstance().GetRenderer(), 
+		texture, &clipRect, &r);
+}
+void Sprite::Render(float x, float y){
+	// std::cout << "Render do sprite" << std::endl;
+	SDL_Rect r;
+	r.x = x; r.y = y;
 	r.w = width; r.h = height;
 	SDL_RenderCopy(Game::GetInstance().GetRenderer(), 
 		texture, &clipRect, &r);

@@ -4,6 +4,7 @@
 #include "inclusao.h"
 #include "Component.h"
 #include "GameObject.h"
+#include "Resources.h"
 #include <iostream>
 
 class Sound : public Component{

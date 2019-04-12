@@ -4,7 +4,9 @@
 #include "inclusao.h"
 #include <iostream>
 #include "State.h"
+#include "Resources.h"
 
+class State;
 class Game{
 
 public:

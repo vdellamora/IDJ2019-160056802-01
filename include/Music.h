@@ -3,6 +3,7 @@
 
 #define NOGDI
 #include "inclusao.h"
+#include "Resources.h"
 #include <iostream>
 
 class Music{

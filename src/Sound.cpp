@@ -10,7 +10,7 @@ Sound::Sound(GameObject& associated, std::string file) : Component(associated){
 }
 Sound::~Sound(){
 	Stop();
-	if (IsOpen()) Mix_FreeChunk(chunk);
+	// if (IsOpen()) Mix_FreeChunk(chunk);
 }
 void Sound::Update(float dt){}
 void Sound::Render(){}
@@ -25,12 +25,7 @@ void Sound::Stop(){
 	if (IsOpen()) Mix_HaltChannel(channel);
 }
 void Sound::Open(std::string file){
-	chunk = Mix_LoadWAV(file.c_str());
-	if(!IsOpen()){
-		// Tratar erro
-		std::cout << "Erro: Não consegui carregar o som. Detalhes: " << SDL_GetError() << std::endl;
-		exit(1);
-	}
+	chunk = Resources::GetSound(file);
 }
 bool Sound::IsOpen(){ return (chunk!=nullptr); }
 bool Sound::IsPlaying(){ return Mix_Playing(this->channel); }

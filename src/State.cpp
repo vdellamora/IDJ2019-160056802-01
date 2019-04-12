@@ -10,6 +10,15 @@ State::State(){
 	bg->AddComponent(new Sprite(*bg, "assets/img/ocean.jpg"));
 	objectArray.emplace_back(bg);
 
+	tm = new GameObject();
+	tm->box.x = 0;
+	tm->box.y = 0;
+	tm->AddComponent(new TileMap(*tm, 
+		"assets/map/tileMap.txt", 
+		new TileSet(64, 64, "assets/img/tileset.png")));
+	objectArray.emplace_back(tm);
+
+
 	music = Music();
 	
 }

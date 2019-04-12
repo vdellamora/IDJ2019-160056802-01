@@ -24,3 +24,11 @@
 #else
     #error "Unknown compiler"
 #endif
+
+#define PARA(i,max)         for(int i=0;    i<(max);i++)
+#define PARA2(i,min,max)    for(int i=(min);i<(max);i++)
+#define PARA3(i,max,min)    for(int i=(max);i>(min);i--)
+
+#define D_TRACE 1
+
+#define TRACE(msg)          if(D_TRACE) std::cout << msg << std::endl;

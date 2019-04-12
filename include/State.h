@@ -8,7 +8,11 @@
 #include "Sprite.h"
 #include "Music.h"
 #include "GameObject.h"
+#include "TileSet.h"
+#include "TileMap.h"
 #include <memory>
+
+// class Music;
 
 class State{
 
@@ -22,6 +26,7 @@ public:
 
 private:
 	GameObject* bg;
+	GameObject* tm;
 	Music music;
 	bool quitRequested;
 

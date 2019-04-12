@@ -72,4 +72,7 @@ Game* Game::instance = nullptr;
 			SDL_RenderPresent(renderer);
 			SDL_Delay(33);
 		}
+		Resources::ClearImages();
+		Resources::ClearMusics();
+		Resources::ClearSounds();
 	}
