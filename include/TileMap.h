@@ -17,6 +17,7 @@ public:
 	void SetTileSet(TileSet*);
 	int& At(int, int, int);
 	void Render();
+	void Render(int);
 	void RenderLayer(int, int, int);
 	bool Is(std::string);
 	int GetWidth();

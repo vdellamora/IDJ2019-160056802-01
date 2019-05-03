@@ -1,4 +1,5 @@
 #include "../include/TileMap.h"
+#include "../include/Camera.h"
 #include <fstream>
 
 TileMap::TileMap(GameObject& associated, std::string file, TileSet* tileSet) : Component(associated){
@@ -39,11 +40,11 @@ void TileMap::Load(std::string file){
 				//tileMatrix[i][j][k] = std::atoi(temp) - 1;
 
 				///// Trace
-				// if(D_TRACE) std::cout << ((valor<10 && valor >= 0) ? " " : "") << valor << " ";
+				//TRACEN( ((valor<10 && valor >= 0) ? " " : "") + std::to_string(valor) + " ");
 			}
-			// if(D_TRACE) std::cout << std::endl;
+			//TRACEN("\n");
 		}
-		// if(D_TRACE) std::cout << std::endl;
+		//TRACEN("\n");
 		std::getline(entrada, linha);
 	}
 }
@@ -56,8 +57,11 @@ int& TileMap::At(int x, int y, int z){
 }
 void TileMap::Render(){
 	for(int i = 0; i<mapDepth; i++){
-		RenderLayer(i, 0, 0);
+		RenderLayer(i, Camera::pos.x, Camera::pos.y);
 	}
+}
+void TileMap::Render(int layer){
+	RenderLayer(layer, Camera::pos.x, Camera::pos.y);
 }
 void TileMap::RenderLayer(int layer, int cameraX = 0, int cameraY = 0){
 	// TRACE("RenderLayer");
@@ -65,8 +69,8 @@ void TileMap::RenderLayer(int layer, int cameraX = 0, int cameraY = 0){
 	for(int i = 0; i < mapWidth; i++){
 		for(int j = 0; j < mapHeight; j++){
 			int posX, posY;
-			posX = i * tileSet->GetTileWidth()  - cameraX;
-			posY = j * tileSet->GetTileHeight() - cameraY;
+			posX = i * tileSet->GetTileWidth()  - cameraX * layer/3;
+			posY = j * tileSet->GetTileHeight() - cameraY * layer/3;
 			// TRACE(cameraX << " " << cameraY);
 			// TRACE("PosX PosY: " << posX << " " << posY);
 			// TRACE("TSw TSh: " << -tileSet->GetTileWidth() << " " << -tileSet->GetTileHeight());

@@ -2,6 +2,7 @@
 #include "../include/Rect.h"
 #include "../include/Sprite.h"
 #include "../include/Resources.h"
+#include "../include/Camera.h"
 
 Sprite::Sprite(GameObject& go) : Component(go) {
 	texture = nullptr;
@@ -38,7 +39,7 @@ bool Sprite::Is(std::string type){
 void Sprite::Render(){
 	// std::cout << "Render do sprite" << std::endl;
 	SDL_Rect r;
-	r.x = associated.box.x; r.y = associated.box.y;
+	r.x = associated.box.x - Camera::pos.x; r.y = associated.box.y - Camera::pos.y;
 	r.w = width; r.h = height;
 	SDL_RenderCopy(Game::GetInstance().GetRenderer(), 
 		texture, &clipRect, &r);
@@ -46,7 +47,7 @@ void Sprite::Render(){
 void Sprite::Render(float x, float y){
 	// std::cout << "Render do sprite" << std::endl;
 	SDL_Rect r;
-	r.x = x; r.y = y;
+	r.x = x - Camera::pos.x; r.y = y - Camera::pos.y;
 	r.w = width; r.h = height;
 	SDL_RenderCopy(Game::GetInstance().GetRenderer(), 
 		texture, &clipRect, &r);
