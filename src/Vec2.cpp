@@ -16,7 +16,7 @@ Vec2 Vec2::GetNormalizado(){
 	return Vec2(x/GetMagnitude(),y/GetMagnitude());
 }
 float Vec2::GetInclinacao(){
-	// TODO
+	return atan2(y,x);
 }
 Vec2 Vec2::Soma(Vec2* v1, Vec2* v2){
 	return Vec2(v1->GetX()+v2->GetX(), v1->GetY()+v2->GetY());

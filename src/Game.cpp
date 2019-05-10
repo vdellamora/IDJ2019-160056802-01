@@ -1,5 +1,7 @@
 #include "../include/Game.h"
 #include "../include/InputManager.h"
+#include <ctime>
+
 
 Game* Game::instance = nullptr;
 
@@ -10,6 +12,7 @@ Game& Game::GetInstance(){
 }
 
 Game::Game(std::string title, int width, int height){
+	std::srand(time(NULL));
 	dt = 0;
 	frameStart = 0;
 
@@ -75,7 +78,7 @@ SDL_Renderer* Game::GetRenderer(){
 
 void Game::Run(){
 	TRACE("GameRun");
-	state->LoadAssets();
+	state->Start();
 	while(!state->QuitRequested()){
 		CalculateDeltaTime();
 		InputManager::GetInstance().Update();

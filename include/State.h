@@ -3,7 +3,6 @@
 
 #include "inclusao.h"
 #include <iostream>
-#include "Face.h"
 #include "Sound.h"
 #include "Sprite.h"
 #include "Music.h"
@@ -19,15 +18,19 @@ class State{
 public:
 	State();
 	~State();
-	bool QuitRequested();
+	void Start();
 	void LoadAssets();
 	void Update(float);
 	void Render();
-
+	std::weak_ptr<GameObject> AddObject(GameObject*);
+	std::weak_ptr<GameObject> GetObjectPtr(GameObject*);
+	bool QuitRequested();
 private:
 	GameObject* bg;
 	GameObject* tm;
+	GameObject* alien;
 	Music music;
+	bool started;
 	bool quitRequested;
 
 	void Input();

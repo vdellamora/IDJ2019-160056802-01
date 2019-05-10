@@ -1,6 +1,7 @@
 #include "../include/GameObject.h"
 
 GameObject::GameObject(){
+	started = false;
 	isDead = false;
 	box.x = 0;
 	box.y = 0;
@@ -15,6 +16,14 @@ GameObject::~GameObject(){
 	// }
 	components.clear();
 }
+
+void GameObject::Start(){
+	for(int i = 0; i<components.size(); i++){
+		components[i].get()->Start();
+	}
+	started = true;
+}
+
 void GameObject::Update(float dt){
 	for(int i = 0; i<components.size(); i++){
 		components[i].get()->Update(dt);

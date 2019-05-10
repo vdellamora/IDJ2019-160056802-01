@@ -14,6 +14,7 @@ class GameObject{
 public:
 	GameObject();
 	~GameObject();
+	void Start();
 	void Update(float);
 	void Render();
 	bool IsDead();
@@ -25,6 +26,7 @@ public:
 	Rect box;
 private:
 	std::vector<std::shared_ptr<Component>> components;
+	bool started;
 	bool isDead;
 };
 

@@ -11,6 +11,7 @@ class Component{
 public:
 	Component(GameObject&);
 	virtual ~Component();
+	virtual void Start();
 	virtual void Update(float);
 	virtual void Render();
 	virtual bool Is(std::string);

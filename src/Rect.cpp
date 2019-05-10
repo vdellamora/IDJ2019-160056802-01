@@ -26,7 +26,7 @@ void Rect::Soma(Vec2* v){
 	y+=v->GetY();
 }
 Vec2* Rect::GetCentro(){
-	return new Vec2((x+w)/2, (y+h)/2);
+	return new Vec2(x+w/2, y+h/2);
 }
 float Rect::Distancia(Rect* r1, Rect* r2){
 	return Vec2::Distancia(r1->GetCentro(), r2->GetCentro());
