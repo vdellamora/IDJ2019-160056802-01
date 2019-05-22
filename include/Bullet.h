@@ -10,12 +10,14 @@ class GameObject;
 class Bullet : public Component{
 
 public:
-	Bullet(GameObject&, float, float, int, float, std::string);
+	Bullet(GameObject&, float, float, int, float, std::string, bool);
 	~Bullet();
 	void Update(float);
 	void Render();
 	bool Is(std::string);
 	int GetDamage();
+	void NotifyCollision(GameObject&);
+	bool targetsPlayer;
 private:
 	Vec2 speed;
 	float distanceLeft;

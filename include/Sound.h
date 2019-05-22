@@ -15,7 +15,7 @@ public:
 	~Sound();
 	void Update(float);
 	void Render();
-	void Play(int);
+	void Play(int = 1);
 	void Stop();
 	void Open(std::string);
 	bool IsPlaying();

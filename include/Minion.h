@@ -16,6 +16,7 @@ public:
 	void Render();
 	bool Is(std::string);
 	void Shoot(Vec2);
+	void NotifyCollision(GameObject&);
 private:
 	GameObject* alienCenter;
 	float arc;

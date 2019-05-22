@@ -29,6 +29,7 @@ private:
 	GameObject* bg;
 	GameObject* tm;
 	GameObject* alien;
+	GameObject* penguin;
 	Music music;
 	bool started;
 	bool quitRequested;

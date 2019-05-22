@@ -1,11 +1,15 @@
 #include "../include/State.h"
 #include "../include/InputManager.h"
+#include "../include/Collision.h"
+#include "../include/Collider.h"
+#include "../include/Sprite.h"
 #include "../include/Camera.h"
 #include "../include/CameraFollower.h"
 #include "../include/Alien.h"
+#include "../include/PenguinBody.h"
 #include <cstdlib>
 #include <ctime>
-#define M_PI           3.14159265358979323846  /* pi */
+
 
 State::State(){
 	started = false;
@@ -29,6 +33,13 @@ State::State(){
 	alien->box.x = 512;
 	alien->box.y = 300;
 	objectArray.emplace_back(alien);
+
+	penguin = new GameObject();
+	penguin->AddComponent(new PenguinBody(*penguin));
+	penguin->box.x = 704;
+	penguin->box.y = 640;
+	Camera::Follow(penguin);
+	objectArray.emplace_back(penguin);
 
 	music = Music();
 	
@@ -60,27 +71,35 @@ void State::Update(float dt){
 	Camera::Update(dt);
 
 	if(im.KeyPress(ESCAPE_KEY) || im.QuitRequested()){ quitRequested = true; }
-	if(im.KeyPress(SPACE_KEY)){
-		// Vec2 *v1 = new Vec2(200, 0);
-		// float randomico  = (rand()%1001)/500.0;
-		// float pi = -M_PI+(M_PI*randomico);
-		// // std::cout << randomico << " // " << pi << std::endl;	
-		// v1->Rotacao(pi);
-		// // std::cout << *v1 << std::endl;
-		// Vec2 *v2 = new Vec2(im.GetMouseX(), im.GetMouseY());
-		// Vec2 objPos = Vec2::Soma(v1, v2);
-
-		// AddObject((int)objPos.x, (int)objPos.y);
-	}
-
 
 	for(int i = 0; i < objectArray.size(); i++){
 		objectArray[i].get()->Update(dt);
+
+		Collider* col1 = (Collider *) objectArray[i]->GetComponent("Collider");
+		if(col1){
+			for(int j = i+1; j < objectArray.size(); j++){
+				Collider* col2 = (Collider *) objectArray[j]->GetComponent("Collider");
+				if(col2){
+					Sprite* spr1 = (Sprite*) objectArray[i]->GetComponent("Sprite");
+					Sprite* spr2 = (Sprite*) objectArray[j]->GetComponent("Sprite");
+					//spr->angleDeg -= 0.3f;
+					if(Collision::IsColliding(
+						col1->box, col2->box, 
+						spr1->angleDeg, spr2->angleDeg)){
+						objectArray[i]->NotifyCollision(*objectArray[j]);
+						objectArray[j]->NotifyCollision(*objectArray[i]);
+					}
+				}
+			}
+		}
+
 		if(objectArray[i]->IsDead()) {
-			Sound* s = (Sound *) objectArray[i]->GetComponent("Sound");
-			if (((s) && (!(s->IsPlaying()))) || (!s)) objectArray.erase(objectArray.begin()+i);
+			/*Sound* s = (Sound *) objectArray[i]->GetComponent("Sound");
+			if (((s) && (!(s->IsPlaying()))) || (!s)){ if(s)TRACE("Tem som");*/
+			objectArray.erase(objectArray.begin()+i);//}
 		}
 	}
+
 }
 void State::Render(){
 	bg->GetComponent("Sprite")->Render();

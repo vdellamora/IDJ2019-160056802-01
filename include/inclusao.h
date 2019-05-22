@@ -33,4 +33,6 @@
 #define D_TRACE 0
 
 #define TRACE(msg)          if(D_TRACE) std::cout << msg << std::endl;
-#define TRACEN(msg)          if(D_TRACE) std::cout << msg;
+#define TRACEN(msg)         if(D_TRACE) std::cout << msg;
+
+#define M_PI                3.14159265358979323846

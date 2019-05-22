@@ -22,6 +22,7 @@ public:
 	void AddComponent(Component*);
 	void RemoveComponent(Component*);
 	Component* GetComponent(std::string);
+	void NotifyCollision(GameObject&);
 
 	Rect box;
 private:

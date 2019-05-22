@@ -4,6 +4,7 @@
 #include "inclusao.h"
 #include "GameObject.h"
 #include "Vec2.h"
+#include "Timer.h"
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -18,19 +19,17 @@ public:
 	void Update(float);
 	void Render();
 	bool Is(std::string);
-private:
-	class Action{
-	public:
-		enum ActionType{MOVE, SHOOT};
-		Action(ActionType, float, float);
-		ActionType type;
-		Vec2 pos;
-	};
 
+	void NotifyCollision(GameObject&);
+	static int alienCount;
+private:
+	enum AlienState {MOVING, RESTING};
+	AlienState state;
+	Timer restTimer;
+	Vec2 destination;
 	int hp;
 	Vec2 speed;
 	int minions;
-	std::queue<Action> taskQueue;
 	std::vector<std::weak_ptr<GameObject> > minionArray;
 };
 

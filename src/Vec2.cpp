@@ -21,11 +21,23 @@ float Vec2::GetInclinacao(){
 Vec2 Vec2::Soma(Vec2* v1, Vec2* v2){
 	return Vec2(v1->GetX()+v2->GetX(), v1->GetY()+v2->GetY());
 }
+Vec2 Vec2::Soma(Vec2 v1, Vec2* v2){
+	return Vec2(v1.GetX()+v2->GetX(), v1.GetY()+v2->GetY());
+}
 Vec2 Vec2::Subtracao(Vec2* v1, Vec2* v2){
 	return Vec2(v1->GetX()-v2->GetX(), v1->GetY()-v2->GetY());
 }
+Vec2 Vec2::Subtracao(Vec2& v1, Vec2& v2){
+	return Vec2(v1.GetX()-v2.GetX(), v1.GetY()-v2.GetY());
+}
+Vec2 Vec2::Subtracao(Vec2 v1, Vec2* v2){
+	return Vec2(v1.GetX()-v2->GetX(), v1.GetY()-v2->GetY());
+}
 Vec2 Vec2::MultEscalar(Vec2* v1, float valor){
 	return Vec2(v1->GetX()*valor, v1->GetY()*valor);
+}
+Vec2 Vec2::MultEscalar(Vec2& v1, float valor){
+	return Vec2(v1.GetX()*valor, v1.GetY()*valor);
 }
 float Vec2::Distancia(Vec2* v1, Vec2* v2){
 	return Vec2::Subtracao(v1, v2).GetMagnitude();

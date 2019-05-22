@@ -35,6 +35,11 @@ void GameObject::Render(){
 		components[i].get()->Render();
 	}
 }
+void GameObject::NotifyCollision(GameObject& other){
+	for(int i = 0; i<components.size(); i++){
+		components[i].get()->NotifyCollision(other);
+	}
+}
 bool GameObject::IsDead(){return isDead;}
 void GameObject::RequestDelete(){isDead = true;}
 void GameObject::AddComponent(Component* c){

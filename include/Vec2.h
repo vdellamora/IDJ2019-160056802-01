@@ -18,8 +18,12 @@ public:
 	Vec2 GetNormalizado();
 	float GetInclinacao();
 	static Vec2 Soma(Vec2*, Vec2*);
+	static Vec2 Soma(Vec2, Vec2*);
 	static Vec2 Subtracao(Vec2*, Vec2*);
+	static Vec2 Subtracao(Vec2&, Vec2&);
+	static Vec2 Subtracao(Vec2, Vec2*);
 	Vec2 MultEscalar(Vec2*, float);
+	static Vec2 MultEscalar(Vec2&, float);
 	static float Distancia(Vec2*, Vec2*);
 	static float InclinacaoReta(Vec2*, Vec2*);
 	void Rotacao(float);
