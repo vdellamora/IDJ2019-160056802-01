@@ -30,9 +30,9 @@ void Alien::Start(){
 	for(int i = 0; i<minions; i++){
 		GameObject* minino = new GameObject();
 		minino->AddComponent(new Minion(*minino, 
-			Game::GetInstance().GetState().GetObjectPtr(&associated), 2*M_PI/minions * i));
-		Game::GetInstance().GetState().AddObject(minino);
-		minionArray.push_back(Game::GetInstance().GetState().GetObjectPtr(minino));
+			Game::GetInstance().GetCurrentState().GetObjectPtr(&associated), 2*M_PI/minions * i));
+		Game::GetInstance().GetCurrentState().AddObject(minino);
+		minionArray.push_back(Game::GetInstance().GetCurrentState().GetObjectPtr(minino));
 	}
 }
 void Alien::Update(float dt){

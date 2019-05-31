@@ -3,6 +3,7 @@
 
 #include "inclusao.h"
 #include <iostream>
+#include <stack>
 #include "State.h"
 #include "Resources.h"
 
@@ -10,22 +11,24 @@ class State;
 class Game{
 
 public:
+	Game(std::string, int, int);
 	~Game();
-	void Run();
-	SDL_Renderer* GetRenderer();
-	State& GetState();
 	static Game& GetInstance();
+	SDL_Renderer* GetRenderer();
+	State& GetCurrentState();
+	void Push(State*);
+	void Run();
 	float GetDeltaTime();
 private:
-	Game(std::string, int, int);
-	static Game* instance;
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	State* state;
+	void CalculateDeltaTime();
 	int frameStart;
 	float dt;
+	static Game* instance;
+	State* storedState;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	std::stack<std::unique_ptr<State> > stateStack;
 
-	void CalculateDeltaTime();
 
 };
 

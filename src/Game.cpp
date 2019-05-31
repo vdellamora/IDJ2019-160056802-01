@@ -1,6 +1,7 @@
 #include "../include/Game.h"
 #include "../include/InputManager.h"
 #include <ctime>
+#include <memory>
 
 
 Game* Game::instance = nullptr;
@@ -40,6 +41,9 @@ Game::Game(std::string title, int width, int height){
 		1024)){
 		// Tratar erro
 	}
+	if(TTF_Init() == 0){
+		//Tratar erro
+	}
 	//if(Mix_AllocateChannels(2)){}
 	////////////////////////////////////////////////////////////
 
@@ -50,10 +54,12 @@ Game::Game(std::string title, int width, int height){
 	renderer = SDL_CreateRenderer(window,
 		-1,
 		SDL_RENDERER_ACCELERATED);
-	state = new State();
+	storedState = nullptr;
 }
 
 Game::~Game(){
+	if (storedState != nullptr) delete storedState;
+	TTF_Quit();
 	Mix_CloseAudio();
 	Mix_Quit();
 	IMG_Quit();
@@ -61,8 +67,10 @@ Game::~Game(){
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
-
-State& Game::GetState(){ return *state;}
+void Game::Push(State* state){
+	storedState = state;
+}
+State& Game::GetCurrentState(){ return *(std::unique_ptr<State> &)stateStack.top();}
 float Game::GetDeltaTime(){ return dt;}
 
 void Game::CalculateDeltaTime(){
@@ -77,16 +85,35 @@ SDL_Renderer* Game::GetRenderer(){
 }
 
 void Game::Run(){
-	TRACE("GameRun");
-	state->Start();
-	while(!state->QuitRequested()){
-		CalculateDeltaTime();
-		InputManager::GetInstance().Update();
-		state->Update(dt);
-		state->Render();
+	if(storedState != nullptr){
+		stateStack.emplace(storedState);
+		storedState = nullptr;
+		
+		GetCurrentState().Start();
+		bool rodando = true;
+		while(rodando){
+			if (GetCurrentState().QuitRequested()){
+				stateStack.pop();
+				GetCurrentState().Resume();
+				if (storedState != nullptr){
+					GetCurrentState().Pause();
+					stateStack.emplace(storedState);
+					GetCurrentState().Start();
+				}
+			}
+			CalculateDeltaTime();
+			InputManager::GetInstance().Update();
+			GetCurrentState().Update(dt);
+			GetCurrentState().Render();
 
-		SDL_RenderPresent(renderer);
-		SDL_Delay(33);
+			SDL_RenderPresent(renderer);
+			SDL_Delay(33);
+		}
+		
+	} else {
+		// Tratar erro
+		std::cout << "Não consegui abrir o estado atual." << std::endl;
+		exit(1);
 	}
 	Resources::ClearImages();
 	Resources::ClearMusics();

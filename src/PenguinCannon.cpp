@@ -41,7 +41,7 @@ void PenguinCannon::Shoot(){
 	bullito->box.x = associated.box.GetCentro()->x - bullito->box.w/2 + ajuste.x;
 	bullito->box.y = associated.box.GetCentro()->y - bullito->box.h/2 + ajuste.y;
 	bullito->AddComponent(new Bullet(*bullito, angle/(180/M_PI), 200, 34, 1000, "assets/img/penguinbullet.png", false));
-	Game::GetInstance().GetState().AddObject(bullito);
+	Game::GetInstance().GetCurrentState().AddObject(bullito);
 	TRACE("Cannon: Atirei");
 }
 void PenguinCannon::NotifyCollision(GameObject& other){

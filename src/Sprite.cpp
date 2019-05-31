@@ -22,7 +22,7 @@ Sprite::Sprite(GameObject& go, std::string file, int frameCount, float frameTime
 void Sprite::Open(std::string file){
 	// if(frameCount != 1) TRACE(width/frameCount);
 	texture = Resources::GetImage(file);
-	SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+	SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
 	associated.box.w = GetWidth();
 	associated.box.h = GetHeight();
 	SetClip(0, 0, width/frameCount, height);
@@ -64,7 +64,7 @@ void Sprite::Render(float x, float y){
 	// r.x -= r.x - auxX;
 	// r.y -= r.y - auxY;
 	SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), 
-		texture, &clipRect, &r,
+		texture.get(), &clipRect, &r,
 		angleDeg, nullptr, SDL_FLIP_NONE);
 }
 void Sprite::SetScaleX(float scaleX, float scaleY){

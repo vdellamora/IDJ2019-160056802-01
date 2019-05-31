@@ -5,6 +5,7 @@
 #include "inclusao.h"
 #include "Resources.h"
 #include <iostream>
+#include <memory>
 
 class Music{
 
@@ -17,7 +18,7 @@ public:
 	void Open(std::string);
 	bool IsOpen();
 private:
-	Mix_Music* music;
+	std::shared_ptr<Mix_Music> music;
 };
 
 #endif //C_MUSIC

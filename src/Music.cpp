@@ -11,7 +11,7 @@
 		Stop(0);
 	}
 	void Music::Play(int times){
-		if(music != nullptr) Mix_PlayMusic(music, times);
+		if(music != nullptr) Mix_PlayMusic(music.get(), times);
 		else {
 			// Tratar erro
 			std::cout << "Erro: Não há música nesta instância. Detalhes: " << SDL_GetError() << std::endl;

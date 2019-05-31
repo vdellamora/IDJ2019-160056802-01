@@ -26,8 +26,8 @@ PenguinBody::~PenguinBody(){
 void PenguinBody::Start(){
 	GameObject* pinguino = new GameObject();
 	pinguino->AddComponent(new PenguinCannon(*pinguino, 
-		Game::GetInstance().GetState().GetObjectPtr(&associated)));
-	pcannon = Game::GetInstance().GetState().AddObject(pinguino);
+		Game::GetInstance().GetCurrentState().GetObjectPtr(&associated)));
+	pcannon = Game::GetInstance().GetCurrentState().AddObject(pinguino);
 }
 void PenguinBody::Update(float dt){
 	InputManager im = InputManager::GetInstance();

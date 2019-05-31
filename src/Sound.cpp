@@ -15,7 +15,7 @@ Sound::~Sound(){
 void Sound::Update(float dt){}
 void Sound::Render(){}
 void Sound::Play(int times){
-	channel = Mix_PlayChannel(-1, chunk, times-1);
+	channel = Mix_PlayChannel(-1, chunk.get(), times-1);
 	if(channel == -1){
 		std::cout << "Erro: Não consegui tocar o som. Detalhes: " << SDL_GetError() << std::endl;
 		exit(1);

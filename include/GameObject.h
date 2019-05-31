@@ -26,7 +26,7 @@ public:
 
 	Rect box;
 private:
-	std::vector<std::shared_ptr<Component>> components;
+	std::vector<std::shared_ptr<Component> > components;
 	bool started;
 	bool isDead;
 };

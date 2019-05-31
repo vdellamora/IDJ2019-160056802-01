@@ -5,7 +5,7 @@ INCDIR = include
 BINDIR = bin
 OBJDIR = object
 CFLAGS = -std=c++11 #-O0 -ggdb
-LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer
+LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 BIN = $(BINDIR)/$(EXECNAME)
 SRC = $(wildcard $(SRCDIR)/*.cpp)

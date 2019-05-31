@@ -6,6 +6,7 @@
 #include "Vec2.h"
 #include "Timer.h"
 #include <iostream>
+#include <memory>
 
 class Sprite : public Component{
 
@@ -29,7 +30,7 @@ public:
 	bool IsOpen();
 	float angleDeg;
 private:
-	SDL_Texture* texture;
+	std::shared_ptr<SDL_Texture> texture;
 	int frameCount;
 	int currentFrame;
 	float timeElapsed;

@@ -40,7 +40,7 @@ void Minion::Shoot(Vec2 target){
 	bullito->box.x = associated.box.GetCentro()->x - bullito->box.w/2;
 	bullito->box.y = associated.box.GetCentro()->y - bullito->box.h/2;
 	bullito->AddComponent(new Bullet(*bullito, angulo, 200, 25, 1000, "assets/img/minionbullet2.png", true));
-	Game::GetInstance().GetState().AddObject(bullito);
+	Game::GetInstance().GetCurrentState().AddObject(bullito);
 }
 void Minion::NotifyCollision(GameObject& other){
 	Bullet* bul = (Bullet*) other.GetComponent("Bullet");
