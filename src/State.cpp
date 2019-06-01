@@ -30,6 +30,7 @@ void State::StartArray(){
 		// TRACE("render: " + i);
 		objectArray[i].get()->Start();
 	}
+	started = true;
 }
 void State::UpdateArray(float dt){
 	for(int i = 0; i < objectArray.size(); i++){

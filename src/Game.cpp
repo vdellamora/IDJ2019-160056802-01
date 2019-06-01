@@ -67,10 +67,10 @@ Game::~Game(){
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
-void Game::Push(State* state){
-	storedState = state;
-}
+
+void Game::Push(State* state){storedState = state;}
 State& Game::GetCurrentState(){ return *(std::unique_ptr<State> &)stateStack.top();}
+
 float Game::GetDeltaTime(){ return dt;}
 
 void Game::CalculateDeltaTime(){
@@ -90,17 +90,27 @@ void Game::Run(){
 		storedState = nullptr;
 		
 		GetCurrentState().Start();
-		bool rodando = true;
-		while(rodando){
-			if (GetCurrentState().QuitRequested()){
+		while(!stateStack.empty() && !GetCurrentState().QuitRequested()){
+			if (GetCurrentState().PopRequested()){
+				TRACE("olha o pop");
 				stateStack.pop();
-				GetCurrentState().Resume();
-				if (storedState != nullptr){
-					GetCurrentState().Pause();
-					stateStack.emplace(storedState);
-					GetCurrentState().Start();
-				}
+				TRACE("deu pop");
+				Resources::ClearImages();
+				Resources::ClearSounds();
+				Resources::ClearMusics();
+				Resources::ClearFonts();
+				TRACE("clear tudo");
+				if(!stateStack.empty()) GetCurrentState().Resume();
+				TRACE("resume");
 			}
+
+			if (storedState != nullptr){
+				if(!stateStack.empty()) GetCurrentState().Pause();
+				stateStack.emplace(storedState);
+				storedState = nullptr;
+				GetCurrentState().Start();
+			}
+
 			CalculateDeltaTime();
 			InputManager::GetInstance().Update();
 			GetCurrentState().Update(dt);
@@ -118,5 +128,5 @@ void Game::Run(){
 	Resources::ClearImages();
 	Resources::ClearMusics();
 	Resources::ClearSounds();
+	Resources::ClearFonts();
 }
-

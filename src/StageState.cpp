@@ -1,5 +1,8 @@
 #include "../include/StageState.h"
+#include "../include/Game.h"
 #include "../include/InputManager.h"
+#include "../include/GameData.h"
+#include "../include/EndState.h"
 #include "../include/Collision.h"
 #include "../include/Collider.h"
 #include "../include/Sprite.h"
@@ -13,7 +16,6 @@
 
 StageState::StageState() : State(){
 	started = false;
-	quitRequested = false;
 
 	bg = new GameObject();
 	bg->AddComponent(new Sprite(*bg, "assets/img/ocean.jpg"));
@@ -42,24 +44,17 @@ StageState::StageState() : State(){
 	objectArray.emplace_back(penguin);
 
 	music = Music();
-	
-}
-StageState::~StageState(){
-	objectArray.clear();
+	quitRequested = false;
 }
 
 void StageState::Start(){
+	StartArray();
 	LoadAssets();
-	for(int i = 0; i < objectArray.size(); i++){
-		// TRACE("render: " + i);
-		objectArray[i].get()->Start();
-	}
-	started = true;
 }
 
 void StageState::LoadAssets(){
 	// Carregar tudo
-	music.Open("assets/audio/stageStageState.ogg");
+	music.Open("assets/audio/stageState.ogg");
 	music.Play();
 }
 void StageState::Update(float dt){
@@ -67,10 +62,17 @@ void StageState::Update(float dt){
 	InputManager im = InputManager::GetInstance();
 	Camera::Update(dt);
 
-	if(im.KeyPress(ESCAPE_KEY) || im.QuitRequested()){ popRequested = true; }
+	if(im.QuitRequested()) quitRequested = true;
+	if(im.KeyPress(ESCAPE_KEY)){ TRACE("stage sai"); music.Stop(0); popRequested = true; return;}
 
 	for(int i = 0; i < objectArray.size(); i++){
 		objectArray[i].get()->Update(dt);
+
+		if(Alien::alienCount == 0 || PenguinBody::player == nullptr){
+			GameData::playerVictory = PenguinBody::player != nullptr;
+			popRequested = true;
+			Game::GetInstance().Push(new EndState());
+		}
 
 		Collider* col1 = (Collider *) objectArray[i]->GetComponent("Collider");
 		if(col1){
@@ -108,5 +110,6 @@ void StageState::Render(){
 	topo->Render(1);
 }
 
+StageState::~StageState(){objectArray.clear();}
 void StageState::Pause(){}
 void StageState::Resume(){}

@@ -9,7 +9,7 @@
 #include "../include/Sprite.h"
 #include "../include/Music.h"
 
-bool GameData::playerVictory = false;
+bool GameData::playerVictory;
 
 EndState::EndState(){
 	GameObject* textSair = new GameObject();
