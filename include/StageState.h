@@ -29,12 +29,6 @@ private:
 	GameObject* alien;
 	GameObject* penguin;
 	Music music;
-	bool started;
-	bool quitRequested;
-
-	void Input();
-	void AddObject(int, int);
-	std::vector<std::shared_ptr<GameObject>> objectArray;
 
 };
 
