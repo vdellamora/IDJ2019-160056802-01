@@ -6,6 +6,9 @@ State::State(){
 	started = false;
 }
 State::~State(){
+	for(auto i = objectArray.rbegin(); i != objectArray.rend(); ++i) {
+        (*i).reset();
+    }
 	objectArray.clear();
 }
 

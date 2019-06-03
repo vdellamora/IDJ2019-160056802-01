@@ -72,26 +72,38 @@ std::shared_ptr<TTF_Font> Resources::GetFont(std::string file, int size){
 //////////////////////////////////////////////////////////////////////////
 
 void Resources::ClearImages(){
+	int rsrcs = 0;
 	for(auto &iter : imageTable){
+		rsrcs++;
 		if(iter.second.unique()) imageTable.erase(iter.first);
+		TRACE("Images: " + std::to_string(rsrcs));
 	}
 	imageTable.clear();
 }
 void Resources::ClearMusics(){
+	int rsrcs = 0;
 	for(auto &iter : musicTable){
+		rsrcs++;
 		if(iter.second.unique()) musicTable.erase(iter.first);
+		TRACE("Musics: " + std::to_string(rsrcs));
 	}
 	musicTable.clear();
 }
 void Resources::ClearSounds(){
+	int rsrcs = 0;
 	for(auto &iter : soundTable){
+		rsrcs++;
 		if(iter.second.unique()) soundTable.erase(iter.first);
+		TRACE("Sounds: " + std::to_string(rsrcs));
 	}
 	soundTable.clear();
 }
 void Resources::ClearFonts(){
+	int rsrcs = 0;
 	for(auto &iter : fontTable){
+		rsrcs++;
 		if(iter.second.unique()) fontTable.erase(iter.first);
+		TRACE("Fonts: " + std::to_string(rsrcs));
 	}
 	fontTable.clear();
 }

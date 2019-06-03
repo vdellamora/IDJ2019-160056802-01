@@ -7,11 +7,12 @@
 #include "../include/TitleState.h"
 #include "../include/Text.h"
 #include "../include/Sprite.h"
-#include "../include/Music.h"
 
 bool GameData::playerVictory;
 
-EndState::EndState(){
+EndState::EndState() : State(){
+	started = false;
+
 	GameObject* textSair = new GameObject();
 	Text *textSaida = new Text(*textSair, "assets/font/Call me maybe.ttf", 30, Text::TextStyle::SOLID, "Push ESC to quit game", {0,0,0,255});
 	textSair->AddComponent(textSaida);
@@ -49,7 +50,7 @@ void EndState::Update(float dt){
 	if(im.QuitRequested() || im.KeyPress(ESCAPE_KEY)) quitRequested = true;
 	if(im.KeyPress(SPACE_KEY)){
 		popRequested = true;
-		Game::GetInstance().Push(new TitleState());
+		// Game::GetInstance().Push(new TitleState());
 	}
 }
 void EndState::Start(){
@@ -62,6 +63,6 @@ void EndState::Start(){
 
 EndState::~EndState(){}
 void EndState::LoadAssets(){}
-void EndState::Render(){}
+void EndState::Render(){RenderArray();}
 void EndState::Pause(){}
 void EndState::Resume(){}

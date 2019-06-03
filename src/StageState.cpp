@@ -48,6 +48,7 @@ StageState::StageState() : State(){
 }
 
 void StageState::Start(){
+	if(popRequested) return;
 	StartArray();
 	LoadAssets();
 }
@@ -63,7 +64,7 @@ void StageState::Update(float dt){
 	Camera::Update(dt);
 
 	if(im.QuitRequested()) quitRequested = true;
-	if(im.KeyPress(ESCAPE_KEY)){ TRACE("stage sai"); music.Stop(0); popRequested = true; return;}
+	if(im.KeyPress(ESCAPE_KEY)){ TRACE("stage POP"); popRequested = true; return;}
 
 	for(int i = 0; i < objectArray.size(); i++){
 		objectArray[i].get()->Update(dt);

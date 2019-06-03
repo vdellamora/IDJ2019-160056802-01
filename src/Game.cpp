@@ -92,19 +92,21 @@ void Game::Run(){
 		GetCurrentState().Start();
 		while(!stateStack.empty() && !GetCurrentState().QuitRequested()){
 			if (GetCurrentState().PopRequested()){
-				TRACE("olha o pop");
+				TRACE("Game pediu POP");
 				stateStack.pop();
-				TRACE("deu pop");
-				Resources::ClearImages();
-				Resources::ClearSounds();
-				Resources::ClearMusics();
-				Resources::ClearFonts();
-				TRACE("clear tudo");
+				TRACE("Game deu POP");
+				// Resources::ClearImages(); TRACE("Game ClearImages");
+				// Resources::ClearSounds(); TRACE("Game ClearSounds");
+				// Resources::ClearMusics(); TRACE("Game ClearMusics");
+				// Resources::ClearFonts(); TRACE("Game ClearFonts");
+
+				TRACE("Game limpou Resources");
 				if(!stateStack.empty()) GetCurrentState().Resume();
-				TRACE("resume");
+				TRACE("Game passou do if");
 			}
 
 			if (storedState != nullptr){
+				TRACE("Game pediu novo STATE");
 				if(!stateStack.empty()) GetCurrentState().Pause();
 				stateStack.emplace(storedState);
 				storedState = nullptr;
@@ -125,8 +127,6 @@ void Game::Run(){
 		std::cout << "Não consegui abrir o estado atual." << std::endl;
 		exit(1);
 	}
-	Resources::ClearImages();
-	Resources::ClearMusics();
-	Resources::ClearSounds();
-	Resources::ClearFonts();
+	// Resources::ClearImages(); Resources::ClearMusics();
+	// Resources::ClearSounds(); Resources::ClearFonts();
 }

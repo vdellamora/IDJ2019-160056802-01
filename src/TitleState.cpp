@@ -24,7 +24,8 @@ void TitleState::Update(float dt){
 	if(im.KeyPress(ESCAPE_KEY) || im.QuitRequested()){ quitRequested = true; }
 
 	if(im.KeyPress(SPACE_KEY)){
-		 Game::GetInstance().Push(new StageState());
+		TRACE("Title novo Stage");
+		Game::GetInstance().Push(new StageState());
 	}
 }
 void TitleState::Render(){RenderArray();}
