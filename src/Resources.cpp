@@ -73,37 +73,37 @@ std::shared_ptr<TTF_Font> Resources::GetFont(std::string file, int size){
 
 void Resources::ClearImages(){
 	int rsrcs = 0;
-	for(auto &iter : imageTable){
+	for(auto &i : imageTable){
 		rsrcs++;
-		if(iter.second.unique()) imageTable.erase(iter.first);
-		TRACE("Images: " + std::to_string(rsrcs));
+		if(i.second.unique()) imageTable.erase(i.first);
+		TRACE("Cleared Images: " + std::to_string(rsrcs));
 	}
 	imageTable.clear();
 }
 void Resources::ClearMusics(){
 	int rsrcs = 0;
-	for(auto &iter : musicTable){
+	for(auto &i : musicTable){
 		rsrcs++;
-		if(iter.second.unique()) musicTable.erase(iter.first);
-		TRACE("Musics: " + std::to_string(rsrcs));
+		if(i.second.unique()) musicTable.erase(i.first);
+		TRACE("Cleared Musics: " + std::to_string(rsrcs));
 	}
 	musicTable.clear();
 }
 void Resources::ClearSounds(){
 	int rsrcs = 0;
-	for(auto &iter : soundTable){
+	for(auto &i : soundTable){
 		rsrcs++;
-		if(iter.second.unique()) soundTable.erase(iter.first);
-		TRACE("Sounds: " + std::to_string(rsrcs));
+		if(i.second.unique()) soundTable.erase(i.first);
+		TRACE("Cleared Sounds: " + std::to_string(rsrcs));
 	}
 	soundTable.clear();
 }
 void Resources::ClearFonts(){
 	int rsrcs = 0;
-	for(auto &iter : fontTable){
+	for(auto &i : fontTable){
 		rsrcs++;
-		if(iter.second.unique()) fontTable.erase(iter.first);
-		TRACE("Fonts: " + std::to_string(rsrcs));
+		if(i.second.unique()) fontTable.erase(i.first);
+		TRACE("Cleared Fonts: " + std::to_string(rsrcs));
 	}
 	fontTable.clear();
 }

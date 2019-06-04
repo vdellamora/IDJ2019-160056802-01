@@ -30,7 +30,7 @@
 #define PARA3(i,max,min)    for(int i=(max);i>(min);i--)
 #define MSET(var,val)       memset(var, val, sizeof(var))
 
-#define D_TRACE 1
+#define D_TRACE 0
 
 #define TRACE(msg)          if(D_TRACE) std::cout << msg << std::endl;
 #define TRACEN(msg)         if(D_TRACE) std::cout << msg;

@@ -29,7 +29,7 @@ EndState::EndState() : State(){
 	if(GameData::playerVictory){
 		background->AddComponent(new Sprite(*background, "assets/img/win.jpg"));
 		backgroundMusic.Open("assets/audio/endStateWin.ogg");
-		offset = 720;
+		offset = 500;
 	} else {
 		background->AddComponent(new Sprite(*background, "assets/img/lose.jpg"));
 		backgroundMusic.Open("assets/audio/endStateLose.ogg");
